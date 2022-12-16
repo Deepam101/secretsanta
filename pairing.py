@@ -34,6 +34,17 @@ def read_file():
         giver_list = giver_list[1:] # remove first row
         return giver_list
 
+"""Create new CSV list by removing timestamp and room number"""
+import csv
+def processList():
+    with open('list.csv', 'rb') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        with open("formattedInput","wb") as result:
+            wtr= csv.writer( result )
+            for r in reader:
+                wtr.writerow( (r[1], r[3]) )
+            print(result)
+
 """ Write csv with names, email addresses and room numbers of givers and receivers
     """
 def write_file(givers_list, rand_vec):
@@ -84,9 +95,9 @@ def main():
                     break
     write_file(givers_list, rand_vec) # write csv file with pairs
     for ind in range(N): # print in Terminal
-        print givers_list[ind][1], "(", givers_list[ind][2], ") to", \
-           givers_list[rand_vec[ind]][1], "(", givers_list[rand_vec[ind]][2], ")"
-    print "Number of iterations needed: ", iteration # Print number of iterations
+        print ( givers_list[ind][1], "(", givers_list[ind][2], ") to", \
+           givers_list[rand_vec[ind]][1], "(", givers_list[rand_vec[ind]][2], ")")
+    print ("Number of iterations needed: ", iteration) # Print number of iterations
 
 """ This is the standard boilerplate that calls the main() function.
     """
